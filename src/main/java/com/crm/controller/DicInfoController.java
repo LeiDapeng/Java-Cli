@@ -2,6 +2,8 @@ package com.crm.controller;
 
 import com.crm.dao.DictInfoMapper;
 import com.crm.entity.DictInfo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +18,13 @@ public class DicInfoController extends BaseController{
     @Autowired
     DictInfoMapper dictInfoMapper;
 
+
     @RequestMapping(value="get")
-    public String getDicInfo(){
-        List<DictInfo> list=dictInfoMapper.selectByGroupKey("cust_type");
+    public String getDicInfo(DictInfo dictInfo){
+        List<DictInfo> list=dictInfoMapper.selectByGroupKey(dictInfo.getDictGroup());
         return ResponseJson("0","交易成功",list);
 
     }
-
     @RequestMapping("insert")
     public String insert(){
         DictInfo dictInfo=new DictInfo();
